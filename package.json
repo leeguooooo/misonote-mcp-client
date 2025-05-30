@@ -1,6 +1,6 @@
 {
   "name": "misonote-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP (Model Context Protocol) client for Misonote Markdown documentation system - AI-native document management",
   "main": "misonote-mcp-client.js",
   "bin": {
