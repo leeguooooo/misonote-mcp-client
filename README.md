@@ -38,6 +38,14 @@
 
 ### 1. 安装
 
+#### 安装 via Smithery
+
+对于 Claude Desktop 用户，可以通过 [Smithery](https://smithery.ai/server/@leeguooooo/misonote-mcp-client) 快速安装 misonote-mcp-client ：
+
+```bash
+npx -y @smithery/cli install @leeguooooo/misonote-mcp-client --client claude
+```
+
 #### 方法一：NPM 全局安装（推荐）
 
 **📦 NPM 包地址**: [https://www.npmjs.com/package/misonote-mcp](https://www.npmjs.com/package/misonote-mcp)
