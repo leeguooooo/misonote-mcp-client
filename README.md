@@ -1,10 +1,15 @@
 # 🤖 Misonote MCP Client
 
+[![npm version](https://badge.fury.io/js/misonote-mcp.svg)](https://www.npmjs.com/package/misonote-mcp)
+[![npm downloads](https://img.shields.io/npm/dm/misonote-mcp.svg)](https://www.npmjs.com/package/misonote-mcp)
+
 > MCP (Model Context Protocol) 客户端，用于将 Misonote Markdown 文档系统与 Cursor 编辑器深度集成
+
+**🎉 现已发布到 NPM！** 通过 `npm install -g misonote-mcp` 即可快速安装使用。
 
 ## ✨ 功能特性
 
-### �� **文档管理**
+### **文档管理**
 - **创建文档** - 通过自然语言创建 Markdown 文档
 - **读取文档** - 获取文档内容和元数据
 - **更新文档** - 修改现有文档内容
@@ -27,11 +32,15 @@
 - **自动地址** - 创建文档时自动生成访问链接
 - **便于分享** - 一键获取文档分享地址
 
+> 需要跟 https://github.com/leeguooooo/misonote-markdown 文档平台项目一起使用
+
 ## 🚀 快速开始
 
 ### 1. 安装
 
-#### 方法一：全局安装（推荐）
+#### 方法一：NPM 全局安装（推荐）
+
+**📦 NPM 包地址**: [https://www.npmjs.com/package/misonote-mcp](https://www.npmjs.com/package/misonote-mcp)
 
 ```bash
 # 使用 npm
@@ -44,7 +53,9 @@ pnpm add -g misonote-mcp
 yarn global add misonote-mcp
 ```
 
-#### 方法二：本地克隆
+安装完成后，您可以直接在 Cursor 中使用 `misonote-mcp` 命令。
+
+#### 方法二：本地开发安装
 
 ```bash
 # 克隆项目
@@ -57,7 +68,7 @@ npm install
 
 ### 2. 配置 Cursor
 
-#### 全局安装后的配置
+#### NPM 全局安装后的配置（推荐）
 
 在 Cursor 设置中添加 MCP 服务器配置：
 
@@ -75,7 +86,9 @@ npm install
 }
 ```
 
-#### 本地克隆后的配置
+> 💡 **提示**: 使用 NPM 全局安装后，无需指定完整路径，直接使用 `misonote-mcp` 命令即可。
+
+#### 本地开发配置
 
 ```json
 {
@@ -166,10 +179,37 @@ AI: "好的，我已经记录了您的编程习惯，以后会在代码示例中
 | `search_memories` | 搜索记忆记录 |
 | `list_memory_projects` | 列出记忆项目 |
 
-## 🔗 相关项目
+## NPM 包信息
+
+### 包详情
+- **包名**: `misonote-mcp`
+- **版本**: `1.0.0`
+- **NPM 地址**: [https://www.npmjs.com/package/misonote-mcp](https://www.npmjs.com/package/misonote-mcp)
+- **仓库地址**: [https://github.com/leeguooooo/misonote-mcp-client](https://github.com/leeguooooo/misonote-mcp-client)
+
+### 安装统计
+```bash
+# 查看包信息
+npm info misonote-mcp
+
+# 查看版本历史
+npm view misonote-mcp versions --json
+```
+
+### 更新包
+```bash
+# 检查更新
+npm outdated -g misonote-mcp
+
+# 更新到最新版本
+npm update -g misonote-mcp
+```
+
+## �🔗 相关项目
 
 - **主项目**: [misonote-markdown](https://github.com/leeguooooo/misonote-markdown)
 - **Docker 镜像**: [leeguo/misonote-markdown](https://hub.docker.com/r/leeguo/misonote-markdown)
+- **NPM 包**: [misonote-mcp](https://www.npmjs.com/package/misonote-mcp)
 
 ## 📄 许可证
 

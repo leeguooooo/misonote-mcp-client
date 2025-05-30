@@ -12,7 +12,7 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0
       axios:
-        specifier: ^1.7.9
+        specifier: ^1.9.0
         version: 1.9.0
 
 packages:
