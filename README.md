@@ -115,13 +115,13 @@ npm install
    # 本地开发
    pnpm dev
 
-   # 或 Docker 部署
-   docker run -p 3000:3000 leeguo/misonote-markdown
+   # 或 Docker 部署（设置管理员密码）
+   docker run -p 3000:3000 -e ADMIN_PASSWORD=your_password leeguo/misonote-markdown
    ```
 
 2. **访问管理界面**
    - 打开浏览器访问：`http://localhost:3000/admin`
-   - 使用管理员账号登录
+   - 使用管理员密码登录（Docker 默认：admin123）
 
 3. **创建 API 密钥**
    - 进入 "API 密钥管理" 页面
@@ -133,6 +133,8 @@ npm install
 4. **密钥格式**
    - API 密钥格式：`mcp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
    - 请妥善保存，密钥只显示一次
+
+> **重要**: API 密钥现在完全通过管理界面创建，不再依赖环境变量。
 
 ## 🎯 使用示例
 
