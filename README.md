@@ -106,15 +106,31 @@ npm install
 
 ### 🔑 获取 API 密钥
 
-启动 Misonote Markdown 服务器后，从日志中获取 API 密钥：
+在 Misonote Markdown 服务器管理界面中创建 API 密钥：
 
-```bash
-# Docker 部署
-docker logs misonote-markdown 2>&1 | grep "API Key"
+1. **启动服务器**
+   ```bash
+   # 本地开发
+   pnpm dev
 
-# 本地开发
-pnpm dev | grep "API Key"
-```
+   # 或 Docker 部署
+   docker run -p 3000:3000 leeguo/misonote-markdown
+   ```
+
+2. **访问管理界面**
+   - 打开浏览器访问：`http://localhost:3000/admin`
+   - 使用管理员账号登录
+
+3. **创建 API 密钥**
+   - 进入 "API 密钥管理" 页面
+   - 点击 "创建新密钥" 按钮
+   - 设置密钥名称（如：`MCP Client`）
+   - 选择权限：建议选择 `read`, `write`, `mcp` 权限
+   - 点击创建，复制生成的 API 密钥
+
+4. **密钥格式**
+   - API 密钥格式：`mcp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+   - 请妥善保存，密钥只显示一次
 
 ## 🎯 使用示例
 
@@ -223,17 +239,26 @@ npm update -g misonote-mcp
 
 ### 常见问题
 
-1. **API Key 无效**
-   - 检查服务器是否启动
+1. **API Key 无效 (401 错误)**
+   - 检查 API Key 是否正确复制（完整的 64 位字符）
    - 确认 API Key 格式正确（以 `mcp_` 开头）
+   - 检查 API Key 是否已过期或被删除
+   - 在管理界面重新创建 API Key
 
-2. **连接失败**
-   - 检查 `MCP_SERVER_URL` 是否正确
-   - 确认服务器端口是否开放
+2. **权限不足 (403 错误)**
+   - 确认 API Key 具有 `mcp` 权限
+   - 建议权限设置：`read`, `write`, `mcp`
+   - 如需管理功能，添加 `admin` 权限
 
-3. **权限不足**
-   - 确认 API Key 具有相应权限
-   - 检查服务器日志获取详细错误信息
+3. **连接失败 (ECONNREFUSED)**
+   - 检查 Misonote 服务器是否正在运行
+   - 确认 `MCP_SERVER_URL` 地址和端口正确
+   - 默认端口通常是 3000 或 3002
+
+4. **找不到管理界面**
+   - 确认访问地址：`http://localhost:3000/admin`
+   - 检查是否已创建管理员账号
+   - 查看服务器启动日志获取正确端口
 
 ### 调试模式
 
