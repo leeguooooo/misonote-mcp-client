@@ -3,217 +3,215 @@
 [![npm version](https://badge.fury.io/js/misonote-mcp.svg)](https://www.npmjs.com/package/misonote-mcp)
 [![npm downloads](https://img.shields.io/npm/dm/misonote-mcp.svg)](https://www.npmjs.com/package/misonote-mcp)
 [![Smithery](https://img.shields.io/badge/Smithery-Available-blue)](https://smithery.ai/server/@leeguooooo/misonote-mcp-client)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> MCP (Model Context Protocol) 客户端，用于将 Misonote Markdown 文档系统与 Cursor 编辑器深度集成
+> **AI 原生的文档管理系统** - 通过 MCP 协议将 Misonote Markdown 与 Cursor 编辑器深度集成，让 AI 成为您的智能文档助手
 
-**🎉 现已发布到多个平台！** 推荐通过 [Smithery.ai](https://smithery.ai/server/@leeguooooo/misonote-mcp-client) 一键安装，或使用 `npm install -g misonote-mcp` 全局安装。
+## 🌟 核心特性
 
-## ✨ 功能特性
+- **🤖 AI 原生设计** - 专为 AI 编辑器优化的文档管理体验
+- **📝 智能文档操作** - 创建、编辑、搜索文档，一切通过自然语言完成
+- **🧠 记忆系统** - AI 记住您的习惯、偏好和项目经验
+- **🔍 智能搜索** - 全文搜索，相关性排序，智能摘要
+- **🔗 即时分享** - 自动生成在线访问链接
+- **⚡ 即插即用** - 支持 Smithery.ai 一键安装
 
-### **文档管理**
-- **创建文档** - 通过自然语言创建 Markdown 文档
-- **读取文档** - 获取文档内容和元数据
-- **更新文档** - 修改现有文档内容
-- **删除文档** - 安全删除文档
-- **文档列表** - 浏览所有可用文档
+## 📋 功能详情
 
-### 🔍 **智能搜索**
-- **全文搜索** - 搜索文档内容、标题和路径
-- **相关性评分** - 智能排序搜索结果
-- **文本片段** - 显示匹配的文本摘要
+| 功能模块 | 描述 | 支持的操作 |
+|---------|------|-----------|
+| **📝 文档管理** | 完整的文档生命周期管理 | 创建、读取、更新、删除、列表 |
+| **🔍 智能搜索** | 全文搜索与智能排序 | 内容搜索、标题搜索、路径搜索 |
+| **🧠 记忆系统** | AI 个性化记忆存储 | 习惯、偏好、复盘、洞察 |
+| **🔗 链接生成** | 自动生成分享链接 | 在线访问、即时分享 |
+| **🛠️ 服务器管理** | 服务器状态与能力查询 | 健康检查、能力查询 |
 
-### 🧠 **记忆系统**
-- **习惯记录** (habits) - 记录用户的工作习惯
-- **偏好管理** (preferences) - 保存用户的技术偏好
-- **复盘记录** (retrospectives) - 记录经验教训
-- **洞察学习** (insights) - 保存学习心得
-- **多项目支持** - 为不同项目维护独立记忆
+### 🧠 记忆系统详解
 
-### 🔗 **地址生成**
-- **自动地址** - 创建文档时自动生成访问链接
-- **便于分享** - 一键获取文档分享地址
+| 记忆类型 | 用途 | 示例 |
+|---------|------|------|
+| **habits** | 工作习惯记录 | "我习惯使用 TypeScript 而不是 JavaScript" |
+| **preferences** | 技术偏好 | "我偏好使用 Tailwind CSS 进行样式设计" |
+| **retrospectives** | 项目复盘 | "这次重构学到了组件设计的重要性" |
+| **insights** | 学习洞察 | "发现使用 React Query 能大幅简化状态管理" |
 
-> 需要跟 https://github.com/leeguooooo/misonote-markdown 文档平台项目一起使用
+> **依赖项目**: 需要配合 [misonote-markdown](https://github.com/leeguooooo/misonote-markdown) 文档服务器使用
 
 ## 🚀 快速开始
 
-### 1. 安装
+### 📦 安装方式
 
-#### 方法一：Smithery.ai 一键安装（推荐）
+#### 🌟 方式一：Smithery.ai（推荐）
 
-**🔗 Smithery 地址**: [https://smithery.ai/server/@leeguooooo/misonote-mcp-client](https://smithery.ai/server/@leeguooooo/misonote-mcp-client)
+**一键安装，零配置！**
 
-通过 Smithery.ai 可以一键安装和配置 MCP 服务器，无需手动配置，是最简单快捷的安装方式。
+1. 访问 [Smithery.ai](https://smithery.ai/server/@leeguooooo/misonote-mcp-client)
+2. 点击 "Install" 按钮
+3. 自动配置完成，立即可用
 
-#### 方法二：NPM 全局安装
-
-**📦 NPM 包地址**: [https://www.npmjs.com/package/misonote-mcp](https://www.npmjs.com/package/misonote-mcp)
+#### 📦 方式二：NPM 全局安装
 
 ```bash
-# 使用 npm
 npm install -g misonote-mcp
-
-# 使用 pnpm
-pnpm add -g misonote-mcp
-
-# 使用 yarn
-yarn global add misonote-mcp
 ```
 
-安装完成后，您可以直接在 Cursor 中使用 `misonote-mcp` 命令。
-
-#### 方法三：本地开发安装
+#### 🛠️ 方式三：源码安装
 
 ```bash
-# 克隆项目
 git clone https://github.com/leeguooooo/misonote-mcp-client.git
 cd misonote-mcp-client
-
-# 安装依赖
 npm install
 ```
 
-### 2. 配置 Cursor
+### ⚙️ Cursor 配置
 
-#### Smithery.ai 安装后的配置（推荐）
+#### 🌟 Smithery.ai 用户
 
-如果您使用 Smithery.ai 安装，配置会自动完成，无需手动配置！
+**无需配置！** 安装后自动生效。
 
-#### NPM 全局安装后的配置
+#### 📦 NPM 全局安装用户
 
-在 Cursor 设置中添加 MCP 服务器配置：
+在 Cursor 设置中添加：
 
 ```json
 {
   "mcpServers": {
-    "misonote-markdown": {
+    "misonote": {
       "command": "misonote-mcp",
       "env": {
-        "MCP_SERVER_URL": "http://localhost:3001",
-        "MCP_API_KEY": "your-api-key"
+        "MCP_SERVER_URL": "http://localhost:3000",
+        "MCP_API_KEY": "your-api-key-here"
       }
     }
   }
 }
 ```
 
-> 💡 **提示**: 使用 NPM 全局安装后，无需指定完整路径，直接使用 `misonote-mcp` 命令即可。
-
-#### 本地开发配置
+#### 🛠️ 源码安装用户
 
 ```json
 {
   "mcpServers": {
-    "misonote-markdown": {
+    "misonote": {
       "command": "node",
-      "args": ["/absolute/path/to/misonote-mcp-client/misonote-mcp-client.js"],
+      "args": ["/path/to/misonote-mcp-client/misonote-mcp-client.js"],
       "env": {
-        "MCP_SERVER_URL": "http://localhost:3001",
-        "MCP_API_KEY": "your-api-key"
+        "MCP_SERVER_URL": "http://localhost:3000",
+        "MCP_API_KEY": "your-api-key-here"
       }
     }
   }
 }
 ```
 
-### 3. 获取 API 密钥
+### 🔑 获取 API 密钥
 
-从 Misonote Markdown 服务器获取 API 密钥：
+启动 Misonote Markdown 服务器后，从日志中获取 API 密钥：
 
 ```bash
-# 如果使用 Docker
-docker logs misonote-markdown | grep "MCP_API_KEY"
+# Docker 部署
+docker logs misonote-markdown 2>&1 | grep "API Key"
 
-# 如果使用开发模式
-cat .env | grep MCP_API_KEY
+# 本地开发
+pnpm dev | grep "API Key"
 ```
-
-## 🛠️ 环境变量
-
-| 变量名 | 描述 | 默认值 |
-|--------|------|--------|
-| `MCP_SERVER_URL` | Misonote Markdown 服务器地址 | `http://localhost:3001` |
-| `MCP_API_KEY` | API 认证密钥 | 必需 |
-| `DEBUG` | 调试模式 | `false` |
-| `TIMEOUT` | 请求超时时间（毫秒） | `15000` |
 
 ## 🎯 使用示例
 
-### 创建文档
+### 📝 创建文档
 ```
-用户: "帮我创建一个 API 文档"
-AI: 文档创建成功！
-    在线地址: http://localhost:3001/docs/api-guide
-    📖 点击地址即可查看文档
-```
-
-### 搜索文档
-```
-用户: "搜索所有关于部署的文档"
-AI: 🔍 找到 3 个相关文档:
-    1. deployment-guide.md - 相关性: 9/10
-       在线地址: http://localhost:3001/docs/deployment-guide
-    ...
+👤 用户: "帮我创建一个 Next.js 部署指南"
+🤖 AI: 文档创建成功！
+     📄 路径: deployment/nextjs-guide
+     🔗 在线地址: http://localhost:3000/docs/deployment/nextjs-guide
+     📖 点击地址即可查看文档
 ```
 
-### 记录习惯
+### 🔍 智能搜索
 ```
-用户: "我习惯在每个函数前写 JSDoc 注释"
-AI: "好的，我已经记录了您的编程习惯，以后会在代码示例中包含详细的 JSDoc 注释"
+👤 用户: "搜索所有关于 Docker 的文档"
+🤖 AI: 🔍 找到 3 个相关文档:
+     
+     1. **docker-deployment.md** - 相关性: 9/10
+        📄 路径: deployment/docker-deployment
+        🔗 在线地址: http://localhost:3000/docs/deployment/docker-deployment
+        📝 摘要: Docker 容器化部署完整指南...
+     
+     2. **docker-compose.md** - 相关性: 8/10
+        📄 路径: infrastructure/docker-compose
+        🔗 在线地址: http://localhost:3000/docs/infrastructure/docker-compose
 ```
 
-## 🔧 技术实现
+### 🧠 记录习惯
+```
+👤 用户: "我习惯使用 TypeScript 而不是 JavaScript"
+🤖 AI: 🧠 已记录您的编程习惯！
+     以后在代码示例中我会优先使用 TypeScript
+     
+👤 用户: "我偏好使用 Tailwind CSS 进行样式设计"
+🤖 AI: 🎨 已记录您的技术偏好！
+     在样式相关的建议中我会推荐 Tailwind CSS 方案
+```
 
-### MCP 协议支持
-- 完整的 MCP 1.0 协议实现
-- 支持工具调用和资源访问
-- 错误处理和重试机制
+## ⚙️ 环境变量
 
-### HTTP API 通信
-- RESTful API 接口
-- JWT 认证支持
-- 请求/响应日志记录
+| 变量名 | 描述 | 默认值 | 必需 |
+|--------|------|--------|------|
+| `MCP_SERVER_URL` | Misonote 服务器地址 | `http://localhost:3000` | ✅ |
+| `MCP_API_KEY` | API 认证密钥 | - | ✅ |
 
-### 工具列表
+## 🔧 API 工具列表
 
-| 工具名 | 描述 |
-|--------|------|
-| `list_documents` | 获取文档列表 |
-| `get_document` | 获取单个文档内容 |
-| `create_document` | 创建新文档 |
-| `update_document` | 更新现有文档 |
-| `delete_document` | 删除文档 |
-| `search_documents` | 搜索文档 |
-| `get_document_url` | 获取文档访问地址 |
-| `add_memory` | 添加记忆记录 |
-| `get_memories` | 获取记忆内容 |
-| `search_memories` | 搜索记忆记录 |
-| `list_memory_projects` | 列出记忆项目 |
+### 📝 文档操作
 
-## 📦 包信息
+| 工具名 | 功能 | 参数 |
+|--------|------|------|
+| `list_documents` | 获取文档列表 | `path?` |
+| `get_document` | 获取文档内容 | `path` |
+| `create_document` | 创建新文档 | `path`, `content`, `title?`, `metadata?` |
+| `update_document` | 更新文档 | `path`, `content`, `title?`, `metadata?` |
+| `delete_document` | 删除文档 | `path` |
+| `search_documents` | 搜索文档 | `query`, `searchType?`, `path?` |
+| `get_document_url` | 获取访问链接 | `path` |
 
-### Smithery.ai 集成（推荐）
-- **Smithery 地址**: [https://smithery.ai/server/@leeguooooo/misonote-mcp-client](https://smithery.ai/server/@leeguooooo/misonote-mcp-client)
-- **一键安装**: 支持通过 Smithery.ai 平台一键安装和配置
-- **自动配置**: 无需手动配置 Cursor 设置
+### 🧠 记忆操作
 
-### NPM 包详情
-- **包名**: `misonote-mcp`
-- **版本**: `1.0.0`
-- **NPM 地址**: [https://www.npmjs.com/package/misonote-mcp](https://www.npmjs.com/package/misonote-mcp)
-- **仓库地址**: [https://github.com/leeguooooo/misonote-mcp-client](https://github.com/leeguooooo/misonote-mcp-client)
+| 工具名 | 功能 | 参数 |
+|--------|------|------|
+| `add_memory` | 添加记忆 | `type`, `content`, `project?`, `tags?` |
+| `get_memories` | 获取记忆 | `project?`, `type?` |
+| `search_memories` | 搜索记忆 | `query`, `project?`, `type?` |
+| `list_memory_projects` | 列出项目 | - |
 
-### 安装统计
+### 🛠️ 服务器操作
+
+| 工具名 | 功能 | 参数 |
+|--------|------|------|
+| `get_server_info` | 获取服务器信息 | - |
+
+## 🔗 相关链接
+
+### 📦 安装平台
+
+| 平台 | 链接 | 特点 |
+|------|------|------|
+| **Smithery.ai** | [misonote-mcp-client](https://smithery.ai/server/@leeguooooo/misonote-mcp-client) | 🌟 一键安装，零配置 |
+| **NPM** | [misonote-mcp](https://www.npmjs.com/package/misonote-mcp) | 📦 全局安装，命令行使用 |
+| **GitHub** | [misonote-mcp-client](https://github.com/leeguooooo/misonote-mcp-client) | 🛠️ 源码安装，开发调试 |
+
+### 🔗 相关项目
+
+| 项目 | 链接 | 描述 |
+|------|------|------|
+| **Misonote Markdown** | [GitHub](https://github.com/leeguooooo/misonote-markdown) | 📝 文档服务器主项目 |
+| **Docker 镜像** | [Docker Hub](https://hub.docker.com/r/leeguo/misonote-markdown) | 🐳 容器化部署 |
+
+## 🛠️ 维护与更新
+
 ```bash
-# 查看包信息
-npm info misonote-mcp
+# 检查版本
+npm info misonote-mcp version
 
-# 查看版本历史
-npm view misonote-mcp versions --json
-```
-
-### 更新包
-```bash
 # 检查更新
 npm outdated -g misonote-mcp
 
@@ -221,21 +219,50 @@ npm outdated -g misonote-mcp
 npm update -g misonote-mcp
 ```
 
-## �🔗 相关项目
+## 🐛 故障排除
 
-- **Smithery.ai**: [misonote-mcp-client](https://smithery.ai/server/@leeguooooo/misonote-mcp-client) - 一键安装
-- **NPM 包**: [misonote-mcp](https://www.npmjs.com/package/misonote-mcp) - 全局安装
-- **主项目**: [misonote-markdown](https://github.com/leeguooooo/misonote-markdown) - 文档服务器
-- **Docker 镜像**: [leeguo/misonote-markdown](https://hub.docker.com/r/leeguo/misonote-markdown) - 容器部署
+### 常见问题
+
+1. **API Key 无效**
+   - 检查服务器是否启动
+   - 确认 API Key 格式正确（以 `mcp_` 开头）
+
+2. **连接失败**
+   - 检查 `MCP_SERVER_URL` 是否正确
+   - 确认服务器端口是否开放
+
+3. **权限不足**
+   - 确认 API Key 具有相应权限
+   - 检查服务器日志获取详细错误信息
+
+### 调试模式
+
+MCP 客户端内置详细的错误处理和调试信息，出现问题时会显示：
+- HTTP 状态码和错误信息
+- 具体的解决建议
+- 请求和响应的调试日志
 
 ## 📄 许可证
 
-MIT License
+MIT License - 详见 [LICENSE](LICENSE) 文件
 
-## 🤝 贡献
+## 🤝 贡献指南
 
-欢迎提交 Issue 和 Pull Request！
+欢迎贡献代码！请遵循以下步骤：
+
+1. Fork 本仓库
+2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
+3. 提交更改 (`git commit -m 'Add amazing feature'`)
+4. 推送到分支 (`git push origin feature/amazing-feature`)
+5. 开启 Pull Request
 
 ---
 
-**让 AI 成为您的智能文档助手！** 🚀
+<div align="center">
+
+**🤖 让 AI 成为您的智能文档助手！**
+
+[![Smithery](https://img.shields.io/badge/Install%20via-Smithery.ai-blue?style=for-the-badge)](https://smithery.ai/server/@leeguooooo/misonote-mcp-client)
+[![NPM](https://img.shields.io/badge/Install%20via-NPM-red?style=for-the-badge)](https://www.npmjs.com/package/misonote-mcp)
+
+</div>
