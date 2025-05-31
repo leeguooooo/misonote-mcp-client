@@ -2,10 +2,11 @@
 
 [![npm version](https://badge.fury.io/js/misonote-mcp.svg)](https://www.npmjs.com/package/misonote-mcp)
 [![npm downloads](https://img.shields.io/npm/dm/misonote-mcp.svg)](https://www.npmjs.com/package/misonote-mcp)
+[![Smithery](https://img.shields.io/badge/Smithery-Available-blue)](https://smithery.ai/server/@leeguooooo/misonote-mcp-client)
 
 > MCP (Model Context Protocol) 客户端，用于将 Misonote Markdown 文档系统与 Cursor 编辑器深度集成
 
-**🎉 现已发布到 NPM！** 通过 `npm install -g misonote-mcp` 即可快速安装使用。
+**🎉 现已发布到多个平台！** 推荐通过 [Smithery.ai](https://smithery.ai/server/@leeguooooo/misonote-mcp-client) 一键安装，或使用 `npm install -g misonote-mcp` 全局安装。
 
 ## ✨ 功能特性
 
@@ -38,15 +39,13 @@
 
 ### 1. 安装
 
-#### 安装 via Smithery
+#### 方法一：Smithery.ai 一键安装（推荐）
 
-对于 Claude Desktop 用户，可以通过 [Smithery](https://smithery.ai/server/@leeguooooo/misonote-mcp-client) 快速安装 misonote-mcp-client ：
+**🔗 Smithery 地址**: [https://smithery.ai/server/@leeguooooo/misonote-mcp-client](https://smithery.ai/server/@leeguooooo/misonote-mcp-client)
 
-```bash
-npx -y @smithery/cli install @leeguooooo/misonote-mcp-client --client claude
-```
+通过 Smithery.ai 可以一键安装和配置 MCP 服务器，无需手动配置，是最简单快捷的安装方式。
 
-#### 方法一：NPM 全局安装（推荐）
+#### 方法二：NPM 全局安装
 
 **📦 NPM 包地址**: [https://www.npmjs.com/package/misonote-mcp](https://www.npmjs.com/package/misonote-mcp)
 
@@ -63,7 +62,7 @@ yarn global add misonote-mcp
 
 安装完成后，您可以直接在 Cursor 中使用 `misonote-mcp` 命令。
 
-#### 方法二：本地开发安装
+#### 方法三：本地开发安装
 
 ```bash
 # 克隆项目
@@ -76,7 +75,11 @@ npm install
 
 ### 2. 配置 Cursor
 
-#### NPM 全局安装后的配置（推荐）
+#### Smithery.ai 安装后的配置（推荐）
+
+如果您使用 Smithery.ai 安装，配置会自动完成，无需手动配置！
+
+#### NPM 全局安装后的配置
 
 在 Cursor 设置中添加 MCP 服务器配置：
 
@@ -187,9 +190,14 @@ AI: "好的，我已经记录了您的编程习惯，以后会在代码示例中
 | `search_memories` | 搜索记忆记录 |
 | `list_memory_projects` | 列出记忆项目 |
 
-## NPM 包信息
+## 📦 包信息
 
-### 包详情
+### Smithery.ai 集成（推荐）
+- **Smithery 地址**: [https://smithery.ai/server/@leeguooooo/misonote-mcp-client](https://smithery.ai/server/@leeguooooo/misonote-mcp-client)
+- **一键安装**: 支持通过 Smithery.ai 平台一键安装和配置
+- **自动配置**: 无需手动配置 Cursor 设置
+
+### NPM 包详情
 - **包名**: `misonote-mcp`
 - **版本**: `1.0.0`
 - **NPM 地址**: [https://www.npmjs.com/package/misonote-mcp](https://www.npmjs.com/package/misonote-mcp)
@@ -215,9 +223,10 @@ npm update -g misonote-mcp
 
 ## �🔗 相关项目
 
-- **主项目**: [misonote-markdown](https://github.com/leeguooooo/misonote-markdown)
-- **Docker 镜像**: [leeguo/misonote-markdown](https://hub.docker.com/r/leeguo/misonote-markdown)
-- **NPM 包**: [misonote-mcp](https://www.npmjs.com/package/misonote-mcp)
+- **Smithery.ai**: [misonote-mcp-client](https://smithery.ai/server/@leeguooooo/misonote-mcp-client) - 一键安装
+- **NPM 包**: [misonote-mcp](https://www.npmjs.com/package/misonote-mcp) - 全局安装
+- **主项目**: [misonote-markdown](https://github.com/leeguooooo/misonote-markdown) - 文档服务器
+- **Docker 镜像**: [leeguo/misonote-markdown](https://hub.docker.com/r/leeguo/misonote-markdown) - 容器部署
 
 ## 📄 许可证
 
