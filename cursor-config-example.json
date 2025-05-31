@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "misonote": {
+      "command": "node",
+      "args": ["path/to/misonote-mcp-client/misonote-mcp-client.js"],
+      "env": {
+        "MCP_API_KEY": "mcp_cfcb6ed1cb9a0e9abeb0eaeb65394f8ef58f30f9504fd16bfb2218c92a4a60bc",
+        "MCP_SERVER_URL": "http://localhost:3000"
+      }
+    }
+  }
+}

@@ -30,7 +30,7 @@ function checkApiKey() {
 // 创建 axios 实例的函数
 function createApiClient() {
   const apiKey = checkApiKey();
-  return axios.create({
+  const client = axios.create({
     baseURL: SERVER_URL,
     headers: {
       'Authorization': `Bearer ${apiKey}`,
@@ -39,6 +39,50 @@ function createApiClient() {
     },
     timeout: 10000
   });
+
+  // 添加请求拦截器用于调试
+  client.interceptors.request.use(
+    (config) => {
+      console.error(`[MCP DEBUG] 请求: ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`);
+      console.error(`[MCP DEBUG] API Key: ${apiKey ? `${apiKey.substring(0, 8)}...` : '未设置'}`);
+      return config;
+    },
+    (error) => {
+      console.error('[MCP DEBUG] 请求拦截器错误:', error);
+      return Promise.reject(error);
+    }
+  );
+
+  // 添加响应拦截器用于调试
+  client.interceptors.response.use(
+    (response) => {
+      console.error(`[MCP DEBUG] 响应成功: ${response.status} ${response.statusText}`);
+      return response;
+    },
+    (error) => {
+      console.error(`[MCP DEBUG] 响应错误详情:`);
+      console.error(`[MCP DEBUG] - 状态码: ${error.response?.status || '无'}`);
+      console.error(`[MCP DEBUG] - 状态文本: ${error.response?.statusText || '无'}`);
+      console.error(`[MCP DEBUG] - 错误消息: ${error.message}`);
+      console.error(`[MCP DEBUG] - 服务器地址: ${SERVER_URL}`);
+
+      if (error.response?.data) {
+        console.error(`[MCP DEBUG] - 响应数据:`, JSON.stringify(error.response.data, null, 2));
+      }
+
+      if (error.response?.headers) {
+        console.error(`[MCP DEBUG] - 响应头:`, JSON.stringify(error.response.headers, null, 2));
+      }
+
+      if (error.code) {
+        console.error(`[MCP DEBUG] - 错误代码: ${error.code}`);
+      }
+
+      return Promise.reject(error);
+    }
+  );
+
+  return client;
 }
 
 // 创建 MCP 服务器
@@ -336,12 +380,99 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       throw error;
     }
 
+    // 构建详细的错误信息
+    let errorMessage = `工具执行失败: ${error.message}`;
+
+    if (error.response) {
+      // HTTP 错误响应
+      errorMessage += `\n\n详细信息:`;
+      errorMessage += `\n- HTTP 状态码: ${error.response.status}`;
+      errorMessage += `\n- 状态文本: ${error.response.statusText}`;
+      errorMessage += `\n- 服务器地址: ${SERVER_URL}`;
+
+      if (error.response.data) {
+        if (typeof error.response.data === 'string') {
+          errorMessage += `\n- 服务器响应: ${error.response.data}`;
+        } else {
+          errorMessage += `\n- 服务器响应: ${JSON.stringify(error.response.data, null, 2)}`;
+        }
+      }
+
+      // 特定错误状态码的建议
+      if (error.response.status === 401) {
+        errorMessage += `\n\n💡 建议: API Key 可能无效或已过期，请检查 MCP_API_KEY 环境变量`;
+      } else if (error.response.status === 403) {
+        errorMessage += `\n\n💡 建议: API Key 可能没有足够的权限，请检查 API Key 的权限设置`;
+      } else if (error.response.status === 404) {
+        errorMessage += `\n\n💡 建议: 请求的资源不存在，请检查路径是否正确`;
+      } else if (error.response.status >= 500) {
+        errorMessage += `\n\n💡 建议: 服务器内部错误，请检查服务器状态或稍后重试`;
+      }
+    } else if (error.code === 'ECONNREFUSED') {
+      errorMessage += `\n\n💡 建议: 无法连接到服务器 ${SERVER_URL}，请检查:`;
+      errorMessage += `\n  1. 服务器是否正在运行`;
+      errorMessage += `\n  2. 服务器地址是否正确`;
+      errorMessage += `\n  3. 网络连接是否正常`;
+    } else if (error.code === 'ETIMEDOUT') {
+      errorMessage += `\n\n💡 建议: 请求超时，请检查网络连接或服务器响应速度`;
+    }
+
     throw new McpError(
       ErrorCode.InternalError,
-      `工具执行失败: ${error.message}`
+      errorMessage
     );
   }
 });
+
+// 创建详细错误信息的辅助函数
+function createDetailedError(operation, error) {
+  let errorMessage = `${operation}失败: ${error.message}`;
+
+  if (error.response) {
+    errorMessage += `\n\n🔍 详细信息:`;
+    errorMessage += `\n• HTTP 状态码: ${error.response.status}`;
+    errorMessage += `\n• 状态文本: ${error.response.statusText}`;
+    errorMessage += `\n• 服务器地址: ${SERVER_URL}`;
+
+    if (error.response.data) {
+      if (typeof error.response.data === 'string') {
+        errorMessage += `\n• 服务器响应: ${error.response.data}`;
+      } else if (error.response.data.error) {
+        errorMessage += `\n• 错误详情: ${error.response.data.error}`;
+        if (error.response.data.details) {
+          errorMessage += `\n• 额外信息: ${error.response.data.details}`;
+        }
+      } else {
+        errorMessage += `\n• 服务器响应: ${JSON.stringify(error.response.data, null, 2)}`;
+      }
+    }
+
+    // 特定错误状态码的建议
+    if (error.response.status === 401) {
+      errorMessage += `\n\n💡 解决建议: API Key 无效或已过期`;
+      errorMessage += `\n   请检查 MCP_API_KEY 环境变量是否正确设置`;
+    } else if (error.response.status === 403) {
+      errorMessage += `\n\n💡 解决建议: API Key 权限不足`;
+      errorMessage += `\n   请确保 API Key 具有执行此操作的权限`;
+    } else if (error.response.status === 404) {
+      errorMessage += `\n\n💡 解决建议: 请求的资源不存在`;
+      errorMessage += `\n   请检查路径或资源是否正确`;
+    } else if (error.response.status >= 500) {
+      errorMessage += `\n\n💡 解决建议: 服务器内部错误`;
+      errorMessage += `\n   请检查服务器状态或稍后重试`;
+    }
+  } else if (error.code === 'ECONNREFUSED') {
+    errorMessage += `\n\n💡 解决建议: 无法连接到服务器`;
+    errorMessage += `\n   1. 检查服务器是否正在运行`;
+    errorMessage += `\n   2. 验证服务器地址: ${SERVER_URL}`;
+    errorMessage += `\n   3. 检查网络连接`;
+  } else if (error.code === 'ETIMEDOUT') {
+    errorMessage += `\n\n💡 解决建议: 请求超时`;
+    errorMessage += `\n   检查网络连接或服务器响应速度`;
+  }
+
+  return new Error(errorMessage);
+}
 
 // 工具实现函数
 async function listDocuments(path) {
@@ -365,7 +496,7 @@ async function listDocuments(path) {
       ]
     };
   } catch (error) {
-    throw new Error(`获取文档列表失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('获取文档列表', error);
   }
 }
 
@@ -391,7 +522,7 @@ async function getDocument(path) {
       ]
     };
   } catch (error) {
-    throw new Error(`获取文档失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('获取文档', error);
   }
 }
 
@@ -415,7 +546,7 @@ async function createDocument(path, content, title, metadata) {
       ]
     };
   } catch (error) {
-    throw new Error(`创建文档失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('创建文档', error);
   }
 }
 
@@ -439,7 +570,7 @@ async function updateDocument(path, content, title, metadata) {
       ]
     };
   } catch (error) {
-    throw new Error(`更新文档失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('更新文档', error);
   }
 }
 
@@ -459,7 +590,7 @@ async function deleteDocument(path) {
       ]
     };
   } catch (error) {
-    throw new Error(`删除文档失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('删除文档', error);
   }
 }
 
@@ -494,7 +625,7 @@ async function getServerInfo() {
       ]
     };
   } catch (error) {
-    throw new Error(`获取服务器信息失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('获取服务器信息', error);
   }
 }
 
@@ -562,7 +693,7 @@ async function searchDocuments(query, searchType = 'content', path = '') {
       ]
     };
   } catch (error) {
-    throw new Error(`搜索文档失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('搜索文档', error);
   }
 }
 
@@ -620,7 +751,7 @@ async function addMemory(project, type, content, tags) {
       ]
     };
   } catch (error) {
-    throw new Error(`添加记忆失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('添加记忆', error);
   }
 }
 
@@ -702,7 +833,7 @@ async function getMemories(project, type) {
       };
     }
   } catch (error) {
-    throw new Error(`获取记忆失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('获取记忆', error);
   }
 }
 
@@ -775,7 +906,7 @@ async function searchMemories(query, project, type) {
       ]
     };
   } catch (error) {
-    throw new Error(`搜索记忆失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('搜索记忆', error);
   }
 }
 
@@ -841,7 +972,7 @@ async function listMemoryProjects() {
       ]
     };
   } catch (error) {
-    throw new Error(`获取记忆项目列表失败: ${error.response?.data?.error || error.message}`);
+    throw createDetailedError('获取记忆项目列表', error);
   }
 }
 
@@ -886,11 +1017,36 @@ async function getDocumentUrl(path) {
   }
 }
 
+// 环境检查函数
+function checkEnvironment() {
+  console.error('\n🔍 MCP 客户端环境检查:');
+  console.error(`📍 服务器地址: ${SERVER_URL}`);
+  console.error(`🔑 API Key: ${API_KEY ? `已设置 (${API_KEY.substring(0, 8)}...)` : '❌ 未设置'}`);
+
+  if (!API_KEY) {
+    console.error('\n⚠️  警告: MCP_API_KEY 环境变量未设置');
+    console.error('   请在 Cursor 的 MCP 配置中设置此变量');
+    console.error('   例如: "env": { "MCP_API_KEY": "your-api-key-here" }');
+  }
+
+  console.error(`🌐 Node.js 版本: ${process.version}`);
+  console.error(`📦 工作目录: ${process.cwd()}`);
+  console.error('');
+}
+
 // 启动服务器
 async function main() {
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error('Misonote Markdown MCP 服务器已启动');
+  try {
+    checkEnvironment();
+
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    console.error('✅ Misonote Markdown MCP 服务器已启动');
+    console.error('🔗 等待来自 AI 编辑器的连接...\n');
+  } catch (error) {
+    console.error('❌ MCP 服务器启动失败:', error.message);
+    throw error;
+  }
 }
 
 main().catch((error) => {
