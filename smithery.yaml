@@ -1,0 +1,24 @@
+# Smithery configuration file: https://smithery.ai/docs/build/project-config
+
+startCommand:
+  type: stdio
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'node', args: ['misonote-mcp-client.js'], env: { MCP_SERVER_URL: config.mcpServerUrl, MCP_API_KEY: config.mcpApiKey } })
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - mcpApiKey
+    properties:
+      mcpServerUrl:
+        type: string
+        default: http://localhost:3000
+        description: Misonote Markdown server URL
+      mcpApiKey:
+        type: string
+        description: API key for authentication
+  exampleConfig:
+    mcpServerUrl: http://localhost:3000
+    mcpApiKey: your_api_key
