@@ -341,7 +341,7 @@ api-tests/
 - ✅ 服务器管理 (1个)
 - 🚧 API测试工具 (21个规划中)
 
-#### **新增规划**: 36个团队智能化工具
+#### **新增规划**: 45个团队智能化工具
 
 ---
 
@@ -1318,6 +1318,306 @@ Phase 3 (6个月内): 14个工具
 └─ API测试工具: 21个 (持续开发)
 ```
 
+### **12. 📅 AI智能日历助手** (4个工具)
+
+#### **query_calendar_events**
+```javascript
+{
+  name: 'query_calendar_events',
+  description: '查询日历事件和日程安排',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      userId: { type: 'string', description: '用户ID' },
+      timeRange: {
+        type: 'string',
+        description: '时间范围',
+        enum: ['today', 'tomorrow', 'this_week', 'next_week', 'custom']
+      },
+      customRange: {
+        type: 'object',
+        description: '自定义时间范围',
+        properties: {
+          startDate: { type: 'string' },
+          endDate: { type: 'string' }
+        }
+      },
+      eventTypes: {
+        type: 'array',
+        description: '事件类型过滤',
+        items: {
+          type: 'string',
+          enum: ['meeting', 'deadline', 'reminder', 'all']
+        }
+      }
+    },
+    required: ['userId']
+  }
+}
+```
+
+#### **analyze_schedule_conflicts**
+```javascript
+{
+  name: 'analyze_schedule_conflicts',
+  description: '分析日程冲突和时间安排',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      userId: { type: 'string', description: '用户ID' },
+      proposedEvent: {
+        type: 'object',
+        description: '拟议事件',
+        properties: {
+          title: { type: 'string' },
+          startTime: { type: 'string' },
+          endTime: { type: 'string' },
+          duration: { type: 'number' }
+        }
+      },
+      checkBuffer: { type: 'boolean', description: '是否检查缓冲时间' }
+    },
+    required: ['userId', 'proposedEvent']
+  }
+}
+```
+
+#### **generate_meeting_preparation**
+```javascript
+{
+  name: 'generate_meeting_preparation',
+  description: '生成会议准备事项',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      meetingId: { type: 'string', description: '会议ID' },
+      meetingType: {
+        type: 'string',
+        description: '会议类型',
+        enum: ['standup', 'review', 'planning', 'brainstorm', 'presentation']
+      },
+      participants: { type: 'array', description: '参与者列表' },
+      agenda: { type: 'string', description: '会议议程' }
+    },
+    required: ['meetingId']
+  }
+}
+```
+
+#### **sync_calendar_platforms**
+```javascript
+{
+  name: 'sync_calendar_platforms',
+  description: '同步多平台日历数据',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      userId: { type: 'string', description: '用户ID' },
+      platforms: {
+        type: 'array',
+        description: '日历平台',
+        items: {
+          type: 'string',
+          enum: ['google', 'outlook', 'apple', 'exchange']
+        }
+      },
+      syncDirection: {
+        type: 'string',
+        description: '同步方向',
+        enum: ['import', 'export', 'bidirectional']
+      }
+    },
+    required: ['userId', 'platforms']
+  }
+}
+```
+
+### **13. 🤝 AI智能时间协调器** (3个工具)
+
+#### **find_optimal_meeting_time**
+```javascript
+{
+  name: 'find_optimal_meeting_time',
+  description: '寻找最佳会议时间',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      participants: { type: 'array', description: '参与者ID列表' },
+      duration: { type: 'number', description: '会议时长(分钟)' },
+      timePreferences: {
+        type: 'object',
+        description: '时间偏好',
+        properties: {
+          preferredDays: { type: 'array' },
+          preferredHours: { type: 'array' },
+          timezone: { type: 'string' }
+        }
+      },
+      urgency: {
+        type: 'string',
+        description: '紧急程度',
+        enum: ['low', 'medium', 'high', 'urgent']
+      }
+    },
+    required: ['participants', 'duration']
+  }
+}
+```
+
+#### **analyze_team_availability**
+```javascript
+{
+  name: 'analyze_team_availability',
+  description: '分析团队成员可用性',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      teamId: { type: 'string', description: '团队ID' },
+      timeRange: { type: 'string', description: '分析时间范围' },
+      analysisType: {
+        type: 'string',
+        description: '分析类型',
+        enum: ['availability_patterns', 'busy_periods', 'optimal_slots']
+      }
+    },
+    required: ['teamId', 'timeRange']
+  }
+}
+```
+
+#### **schedule_meeting_automatically**
+```javascript
+{
+  name: 'schedule_meeting_automatically',
+  description: '自动安排会议',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      meetingDetails: {
+        type: 'object',
+        description: '会议详情',
+        properties: {
+          title: { type: 'string' },
+          description: { type: 'string' },
+          participants: { type: 'array' },
+          duration: { type: 'number' },
+          meetingType: { type: 'string' }
+        }
+      },
+      schedulingOptions: {
+        type: 'object',
+        description: '调度选项',
+        properties: {
+          autoSendInvites: { type: 'boolean' },
+          requireConfirmation: { type: 'boolean' },
+          addToCalendar: { type: 'boolean' }
+        }
+      }
+    },
+    required: ['meetingDetails']
+  }
+}
+```
+
+### **14. 🏢 AI会议室管理系统** (2个工具)
+
+#### **manage_meeting_rooms**
+```javascript
+{
+  name: 'manage_meeting_rooms',
+  description: '管理会议室信息和预订',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      action: {
+        type: 'string',
+        description: '操作类型',
+        enum: ['list', 'search', 'book', 'cancel', 'check_availability']
+      },
+      roomCriteria: {
+        type: 'object',
+        description: '会议室条件',
+        properties: {
+          capacity: { type: 'number' },
+          location: { type: 'string' },
+          equipment: { type: 'array' },
+          accessibility: { type: 'boolean' }
+        }
+      },
+      bookingDetails: {
+        type: 'object',
+        description: '预订详情',
+        properties: {
+          startTime: { type: 'string' },
+          endTime: { type: 'string' },
+          organizer: { type: 'string' },
+          purpose: { type: 'string' }
+        }
+      }
+    },
+    required: ['action']
+  }
+}
+```
+
+#### **optimize_room_usage**
+```javascript
+{
+  name: 'optimize_room_usage',
+  description: '优化会议室使用效率',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      analysisType: {
+        type: 'string',
+        description: '分析类型',
+        enum: ['utilization_rate', 'booking_patterns', 'space_optimization', 'cost_analysis']
+      },
+      timeRange: { type: 'string', description: '分析时间范围' },
+      roomIds: { type: 'array', description: '特定会议室ID列表' },
+      generateRecommendations: { type: 'boolean', description: '是否生成优化建议' }
+    },
+    required: ['analysisType', 'timeRange']
+  }
+}
+```
+
 ---
 
-**MCP工具总数将从14个扩展到71个，成为真正的AI团队大脑工具集！**
+## 📊 **MCP工具总览更新**
+
+### **工具数量统计**
+```
+现有工具: 14个
+├─ 文档管理: 7个 ✅
+├─ AI记忆: 4个 ✅
+├─ 服务器管理: 1个 ✅
+└─ API测试: 21个 🚧
+
+新增工具: 45个
+├─ 代码风格导师: 4个
+├─ 自动汇报系统: 5个
+├─ 团队管理仪表板: 4个
+├─ 项目风险预警: 4个
+├─ Bug管理专家: 5个
+├─ 复盘记录生成: 3个
+├─ 设计实现转换: 4个
+├─ 产品任务规划: 4个
+├─ 团队交接助手: 3个
+├─ 云记忆系统: 4个
+├─ 新员工导师: 3个
+├─ 智能日历助手: 4个 🆕
+├─ 智能时间协调: 3个 🆕
+└─ 会议室管理: 2个 🆕
+
+总计: 80个MCP工具
+```
+
+### **新增功能亮点**
+- **📅 日历集成**: 多平台日历同步，智能日程管理
+- **🤝 时间协调**: AI驱动的会议时间智能安排
+- **🏢 会议室管理**: 智能会议室预订和使用优化
+
+---
+
+**MCP工具总数将从14个扩展到80个，成为真正的AI团队大脑工具集！**
