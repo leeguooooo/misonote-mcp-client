@@ -46,8 +46,10 @@
 **一键安装，零配置！**
 
 1. 访问 [Smithery.ai](https://smithery.ai/server/@leeguooooo/misonote-mcp-client)
-2. 点击 "Install" 按钮
-3. 自动配置完成，立即可用
+2. 配置 ![配置](https://github.com/user-attachments/assets/615e9e6c-28a4-4559-88db-8cb07f077848)
+3. 测试 ![CleanShot 2025-05-31 at 15 13 49](https://github.com/user-attachments/assets/dba523a0-6df5-49fd-a8a0-335ed233bb54)
+4. 点击 "Install" 按钮
+5. 自动配置完成，立即可用
 
 #### 📦 方式二：NPM 全局安装
 
